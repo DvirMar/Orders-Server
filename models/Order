@@ -1,0 +1,21 @@
+const db = require('../util/database');
+
+//class for creating a new order
+module.exports = class Order {
+  constructor(ClientID, theOrder, date, totalAmount, orderID, address) {
+    this.ClientID = ClientID;
+    this.theOrder = theOrder;
+    this.date = date;
+    this.totalAmount = totalAmount;
+    this.orderID=orderID;
+    this.address = address;
+  }
+
+  // a function to save the order to the database
+    save() {
+    return  db.execute(
+      'INSERT INTO orders (clientID, theOrder, date, totalAmount, orderID, address) VALUES (?, ?, ?, ?, ?, ?)',
+      [this.ClientID, this.theOrder, this.date, this.totalAmount, this.orderID, this.address]
+    );
+  }
+};
